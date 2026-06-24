@@ -55,23 +55,11 @@ by `firsthand_hf_llama.py` / `secondhand_hf_llama.py`).
 
 ## Usage
 
-Each script takes `--n_per_condition` (target sample size per disclosure condition) and
-`--output` (CSV path) arguments, and reads its API key from an environment variable
-(`DEEPSEEK_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `CEREBRAS_API_KEY`, or `HF_TOKEN`
-depending on the script).
-
-All calls use sampling temperature 0.8 and random seed 42 (hardcoded as function defaults; not
-exposed as CLI flags). `max_tokens` defaults differ by script because some models (Gemini 2.5 Pro,
-gpt-oss-120b) consume part of their token budget on a hidden reasoning/thinking pass before
-producing visible output:
-
-| Script | Default `max_tokens` |
-|---|---|
-| `firsthand.py` / `secondhand.py` (DeepSeek-V3) | 600 |
-| `*_gpt4o.py` | 800 |
-| `*_hf_llama.py` | 600 |
-| `*_cerebras_llama.py` (gpt-oss-120b) | 2000 |
-| `*_gemini.py` | 4000 |
+Each script takes `--n_per_condition` and `--output` arguments, and reads its API key from an
+environment variable (`DEEPSEEK_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `CEREBRAS_API_KEY`,
+or `HF_TOKEN` depending on the script). Sampling temperature (0.8) and random seed (42) are fixed
+as function defaults. `max_tokens` defaults are set per-script to give Gemini 2.5 Pro and
+gpt-oss-120b enough headroom for their hidden reasoning pass before visible output.
 
 The exact commands used to produce the CSV files included in `data/` were:
 
